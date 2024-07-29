@@ -1745,7 +1745,7 @@ export function NextOfKin({ step, setStep }: any) {
 export function Signatory({ step, setStep }: any) {
   return (
     <>
-      <SignaturePadComponent />
+      <SignaturePadComponent setStep={() => setStep("STEP9")} />
     </>
   );
 }

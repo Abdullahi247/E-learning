@@ -1,6 +1,35 @@
 import { primaryColor } from "@/components/utils/color";
 import styled from "styled-components";
 
+export const Modal = styled.section`
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100000;
+`
+
+export const ModalContainer = styled.div`
+   background-color: white;
+    width: 30%;
+    margin-top: 5% !important;
+    padding: 1.5rem;
+    margin: auto;
+
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+    @media (max-width: 800px) {
+      width: 90%;
+      padding: 1rem;
+    }
+    @media (max-width: 500px) {
+      padding: 0.2rem 0.5rem;
+    }
+`
+
 export const BankFormContainer = styled.div`
   width: 100%;
   height: 100vh;

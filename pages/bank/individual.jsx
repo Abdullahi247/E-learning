@@ -8,9 +8,9 @@ import React from 'react'
 export default function BankForm () {
   return (
     <>
-      <ParticlesComponent />
-      <div style={{ height:'fit-content' }}>
-      {/* <div style={{ backgroundColor: '#518EDD', height:'fit-content' }}> */}
+      {/* <ParticlesComponent /> */}
+      {/* <div style={{ height:'fit-content' }}> */}
+      <div style={{ backgroundColor: '#518EDD', height:'fit-content' }}>
         <BankFormContainer>
           <div className='container'>
             <IndividualBankformsHeader />

@@ -6,7 +6,7 @@ import {
 import React, { useRef, useEffect } from 'react'
 import SignaturePad from 'signature_pad'
 
-const SignaturePadComponent = () => {
+const SignaturePadComponent = ({ setStep }) => {
   const canvasRef = useRef(null)
   const signaturePadRef = useRef(null)
 
@@ -31,14 +31,11 @@ const SignaturePadComponent = () => {
           Kindly sign electronically here by dragging your find on this boards
         </h3>
         <br />
-        <canvas
-          ref={canvasRef}
-          className='canvas-style'
-        ></canvas>
+        <canvas ref={canvasRef} className='canvas-style'></canvas>
       </CanvassContainer>
       <DualAppButtonContainer>
         <button onClick={clearSignature}>Clear</button>
-        <button onClick={saveSignature}>Submit</button>
+        <button onClick={setStep}>Procced to Loan</button>
       </DualAppButtonContainer>
     </div>
   )

@@ -8,6 +8,7 @@ import Category, {
   Signatory,
   ValidIDentity,
 } from "./extra";
+import BusinessInformation, { BusinessManagement, FreeSpeech, LoanInformation } from "./sectionTwp";
 
 export default function IndividualBankMain() {
   const [step, setStep] = useState("STEP1");
@@ -23,6 +24,10 @@ export default function IndividualBankMain() {
       {step == "STEP6" && <EmploymentDetails step={step} setStep={(x: string) => setStep(x)} />}
       {step == "STEP7" && <NextOfKin step={step} setStep={(x: string) => setStep(x)} />}
       {step == "STEP8" && <Signatory step={step} setStep={(x: string) => setStep(x)} />}
+      {step == "STEP9" && <BusinessInformation step={step} setStep={(x: string) => setStep(x)} />}
+      {step == "STEP10" && <BusinessManagement step={step} setStep={(x: string) => setStep(x)} />}
+      {step == "STEP11" && <FreeSpeech step={step} setStep={(x: string) => setStep(x)} />}
+      {step == "STEP12" && <LoanInformation step={step} setStep={(x: string) => setStep(x)} />}
     </>
   );
 }
