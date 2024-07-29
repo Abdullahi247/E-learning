@@ -397,7 +397,11 @@ export function LoanInformation({ step, setStep }: any) {
 
   const handleUpdateRecord = (e: any, i: number, id: any) => {
     const lonzzz = [...loanApplication];
-    lonzzz[i][id] = e;
+    lonzzz[i] = {
+      ...lonzzz[i],
+      [id]: e,
+    };
+    // lonzzz[i][id] = e;
     setLoanApplic(lonzzz);
   };
 
