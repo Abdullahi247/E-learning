@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FormHeader, ReuseableField } from "./extra";
 import {
   DualAppButtonContainer,
+  FormHeaderContainer,
   Modal,
   ModalContainer,
+  ModalTable,
 } from "@/styles/bankForm.styles";
 import toast from "react-hot-toast";
 
@@ -406,63 +408,76 @@ export function LoanInformation({ step, setStep }: any) {
   };
 
   const handleProceed = () => {
-    if (courrentBlockForm != 11) {
-      setCurrentBlockForm(courrentBlockForm + 1);
-    } else {
-    }
+    // if (courrentBlockForm != 11) {
+    //   setCurrentBlockForm(courrentBlockForm + 1);
+    // } else {
+    // }
+    setCurrentBlockForm(11);
   };
 
   return (
     <div>
       {/* <FormHeader header={"Revenue from sales"} /> */}
 
-      {loanApplication.map((x, i) => {
-        return courrentBlockForm == i ? (
-          <div key={i}>
-            <div>
-              <FormHeader header={x?.name} />
-            </div>
-            <ReuseableField
-              value={x?.agoThree}
-              title={"Three (3) months ago"}
-              placeholder={"Three (3) months ago"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "agoThree")}
-            />
-            <ReuseableField
-              value={x?.agoTwo}
-              title={"Two (2) months ago"}
-              placeholder={"Two (2) months ago"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "agoTwo")}
-            />
-            <ReuseableField
-              value={x?.agoOne}
-              title={"One (1) month ago"}
-              placeholder={"One (1) month ago"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "agoOne")}
-            />
-            <ReuseableField
-              value={x?.loanThree}
-              title={"Three (3) months after Loan"}
-              placeholder={"Three (3) months after Loan"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "loanThree")}
-            />
-            <ReuseableField
-              value={x?.loanTwo}
-              title={"Two (2) months after Loan"}
-              placeholder={"Two (2) months after Loan"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "loanTwo")}
-            />
-            <ReuseableField
-              value={x?.loanOne}
-              title={"One (1) month after Loan"}
-              placeholder={"One (1) month after Loan"}
-              eventHandler={(e) => handleUpdateRecord(e, i, "loanOne")}
-            />
+      {courrentBlockForm != 11 &&
+        loanApplication.map((x, i) => {
+          return (
+            <>
+              <div>
+                {/* <FormHeader header={x?.name} /> */}
+                <FormHeaderContainer>
+                  <input
+                    // type={type ? type : "string"}
+                    // placeholder={placeholder}
+                    onChange={(e) =>
+                      handleUpdateRecord(e.target.value, i, "name")
+                    }
+                    value={x?.name}
+                  />
+                </FormHeaderContainer>
+              </div>
+              <ModalTable key={i}>
+                <ReuseableField
+                  value={x?.agoThree}
+                  // title={"3 months ago"}
+                  placeholder={"3 months ago"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "agoThree")}
+                />
+                <ReuseableField
+                  value={x?.agoTwo}
+                  // title={"2 months ago"}
+                  placeholder={"2 months ago"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "agoTwo")}
+                />
+                <ReuseableField
+                  value={x?.agoOne}
+                  // title={"1 month ago"}
+                  placeholder={"1 month ago"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "agoOne")}
+                />
+                <ReuseableField
+                  value={x?.loanThree}
+                  // title={"3 months after Loan"}
+                  placeholder={"3 months after Loan"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "loanThree")}
+                />
+                <ReuseableField
+                  value={x?.loanTwo}
+                  // title={"2 months after Loan"}
+                  placeholder={"2 months after Loan"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "loanTwo")}
+                />
+                <ReuseableField
+                  value={x?.loanOne}
+                  // title={"1 month after Loan"}
+                  placeholder={"1 month after Loan"}
+                  eventHandler={(e) => handleUpdateRecord(e, i, "loanOne")}
+                />
 
-            <DualAppButtonContainer>
+                {/* <DualAppButtonContainer>
               {courrentBlockForm != 11 ? (
                 <>
-                  {/* <button onClick={() => setStep("STEP9")}>Prev</button> */}
+                  <button onClick={() => setStep("STEP9")}>Prev</button>
                   <button onClick={handleProceed}>Next</button>
                 </>
               ) : (
@@ -470,10 +485,18 @@ export function LoanInformation({ step, setStep }: any) {
                   <button onClick={handleProceed}>Next</button>
                 </>
               )}
-            </DualAppButtonContainer>
-          </div>
-        ) : null;
-      })}
+            </DualAppButtonContainer> */}
+              </ModalTable>
+            </>
+          );
+        })}
+      {courrentBlockForm != 11 && (
+        <DualAppButtonContainer>
+          <>
+            <button onClick={handleProceed}>Next</button>
+          </>
+        </DualAppButtonContainer>
+      )}
       {courrentBlockForm == 11 && (
         <div>
           <h3 style={{ textAlign: "center" }}>Thank You</h3>

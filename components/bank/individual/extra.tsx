@@ -32,14 +32,7 @@ export default function Category({ step, setStep }: any) {
       accountCategory != "" &&
       (accountType == "SG Regular" ||
         accountType == "SG Priority" ||
-        accountType == "Investment")
-    ) {
-      setStep("STEP2");
-    } else if (
-      bvn != "" &&
-      accountCategory != "" &&
-      accountType == "Others" &&
-      accountTypeOther != ""
+        accountType == "SG Vendor Loan")
     ) {
       setStep("STEP2");
     } else {
@@ -93,7 +86,7 @@ export default function Category({ step, setStep }: any) {
             <p>Please select one</p>
           </div>
           <div className="infoBox">
-            <ReuseableBoxField
+            {/* <ReuseableBoxField
               value={categories?.accountType == "SG Regular" ? true : false}
               title={"SG Regular"}
               eventHandler={() =>
@@ -102,8 +95,8 @@ export default function Category({ step, setStep }: any) {
                   accountType: "SG Regular",
                 })
               }
-            />
-            <ReuseableBoxField
+            /> */}
+            {/* <ReuseableBoxField
               value={categories?.accountType == "SG Priority" ? true : false}
               title={"SG Priority"}
               eventHandler={() =>
@@ -112,18 +105,18 @@ export default function Category({ step, setStep }: any) {
                   accountType: "SG Priority",
                 })
               }
-            />
+            /> */}
             <ReuseableBoxField
-              value={categories?.accountType == "Investment" ? true : false}
-              title={"Investment"}
+              value={categories?.accountType == "SG Vendor Loan" ? true : false}
+              title={"SG Vendor Loan"}
               eventHandler={() =>
                 setCategories({
                   ...categories,
-                  accountType: "Investment",
+                  accountType: "SG Vendor Loan",
                 })
               }
             />
-            <ReuseableBoxField
+            {/* <ReuseableBoxField
               value={categories?.accountType == "Others" ? true : false}
               title={"Others"}
               eventHandler={() =>
@@ -132,7 +125,7 @@ export default function Category({ step, setStep }: any) {
                   accountType: "Others",
                 })
               }
-            />
+            /> */}
           </div>
           {/* <div className="infoBox"> */}
           {categories?.accountType == "Others" && (
@@ -1751,7 +1744,7 @@ export function Signatory({ step, setStep }: any) {
 }
 
 interface ReusableFieldProps {
-  title: any;
+  title?: any;
   eventHandler: (event?: any) => void;
   value: any;
   placeholder?: any;
