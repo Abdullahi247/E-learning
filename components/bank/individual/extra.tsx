@@ -46,7 +46,7 @@ export default function Category({ step, setStep }: any) {
     <CategoryContainer>
       <div className="slide-in">
         <div className="conts">
-          <FormHeader header={"ACCOUNT OPENING FORM-INDIVIDUAL"} />
+          {/* <FormHeader header={"ACCOUNT OPENING FORM-INDIVIDUAL"} /> */}
         </div>
         <div>
           <div className="titleHead">
@@ -67,12 +67,12 @@ export default function Category({ step, setStep }: any) {
               }
             />
             <ReuseableBoxField
-              value={categories?.accountCategory == "Joint" ? true : false}
-              title={"Joint"}
+              value={categories?.accountCategory == "Corporate" ? true : false}
+              title={"Corporate"}
               eventHandler={() =>
                 setCategories({
                   ...categories,
-                  accountCategory: "Joint",
+                  accountCategory: "Corporate",
                 })
               }
             />

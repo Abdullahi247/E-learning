@@ -499,7 +499,9 @@ export function LoanInformation({ step, setStep }: any) {
       )}
       {courrentBlockForm == 11 && (
         <div>
-          <h3 style={{ textAlign: "center" }}>Thank You</h3>
+          <h3 style={{ textAlign: "center" }}>
+            Thank You for your response. An email will be sent to you shortly
+          </h3>
         </div>
       )}
     </div>
@@ -514,6 +516,7 @@ export function FreeSpeech({ step, setStep }: any) {
     otherBank: "",
     financialObligation: "",
     comments: "",
+    inventoryValue:'',
   });
 
   const handleProceed = () => {
@@ -554,6 +557,12 @@ export function FreeSpeech({ step, setStep }: any) {
         title={"What other banks do you use"}
         placeholder={"What other banks do you use"}
         eventHandler={(e) => setOtherInfo({ ...otherInfo, otherBank: e })}
+      />
+      <ReuseableField
+        value={otherInfo?.inventoryValue}
+        title={"Total Inventory Value"}
+        placeholder={"Total Inventory Value"}
+        eventHandler={(e) => setOtherInfo({ ...otherInfo, inventoryValue: e })}
       />
       <ReuseableField
         value={otherInfo?.financialObligation}

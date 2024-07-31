@@ -35,7 +35,7 @@ const SignaturePadComponent = ({ setStep }) => {
       </CanvassContainer>
       <DualAppButtonContainer>
         <button onClick={clearSignature}>Clear</button>
-        <button onClick={setStep}>Procced to Loan</button>
+        <button onClick={setStep}>Proceed to Loan Application</button>
       </DualAppButtonContainer>
     </div>
   )
