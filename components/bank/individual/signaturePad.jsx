@@ -1,4 +1,4 @@
-import { primaryColor } from '@/components/utils/color'
+import { config, primaryColor } from '@/components/utils/color'
 import {
   CanvassContainer,
   DualAppButtonContainer
@@ -6,7 +6,7 @@ import {
 import React, { useRef, useEffect } from 'react'
 import SignaturePad from 'signature_pad'
 
-const SignaturePadComponent = ({ setStep }) => {
+const SignaturePadComponent = ({ setStep, uniqueId }) => {
   const canvasRef = useRef(null)
   const signaturePadRef = useRef(null)
 
@@ -19,9 +19,17 @@ const SignaturePadComponent = ({ setStep }) => {
     signaturePadRef.current.clear()
   }
 
-  const saveSignature = () => {
+  const saveSignature = async () => {
     const dataURL = signaturePadRef.current.toDataURL()
     console.log(dataURL) // You can send this to your server or use it as needed
+    await axios
+      .post(`${config.liveUrl}/sage-bank/category/${uniqueId}`, {
+        signature: dataURL,
+        refId: uniqueId
+      })
+      .then(res => {
+        // setUniqueId(res.data?.data?.id);
+      })
   }
 
   return (

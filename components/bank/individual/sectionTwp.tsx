@@ -8,6 +8,8 @@ import {
   ModalTable,
 } from "@/styles/bankForm.styles";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { config } from "@/components/utils/color";
 
 const bizType = [
   "individual/sole proprietorship",
@@ -18,7 +20,7 @@ const bizType = [
 ];
 const onLineVendor = ["Online", "physical store", "Hybrid"];
 
-export default function BusinessInformation({ step, setStep }: any) {
+export default function BusinessInformation({ step, setStep, uniqueId }: any) {
   const [businessInfo, setBusinessInfo] = useState({
     businessName: "",
     registeredEmail: "",
@@ -27,7 +29,7 @@ export default function BusinessInformation({ step, setStep }: any) {
     businessLifeCycle: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       businessName,
       registeredEmail,
@@ -42,6 +44,18 @@ export default function BusinessInformation({ step, setStep }: any) {
       businessType != "" &&
       businessLifeCycle != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/BusinessInformation/${uniqueId}`, {
+          businessName: businessName,
+          registeredEmail: registeredEmail,
+          businessAddress: businessAddress,
+          businessLifeCycle: businessLifeCycle,
+          businessType: businessType,
+          refId: uniqueId,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
       setStep("STEP10");
     } else {
       toast.error("Please fill all required fields", {
@@ -142,7 +156,7 @@ export default function BusinessInformation({ step, setStep }: any) {
   );
 }
 
-export function BusinessManagement({ step, setStep }: any) {
+export function BusinessManagement({ step, setStep, uniqueId }: any) {
   const [businessManegement, setBusinessManegement] = useState({
     storeManager: "",
     contactPhone: "",
@@ -154,7 +168,7 @@ export function BusinessManagement({ step, setStep }: any) {
     otherOnlinePlatforms: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       storeManager,
       contactPhone,
@@ -175,6 +189,20 @@ export function BusinessManagement({ step, setStep }: any) {
       productSales != "" &&
       otherOnlinePlatforms != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/BusinessManagement/${uniqueId}`, {
+          storeManager: storeManager,
+          contactPhone: contactPhone,
+          contactEmail: contactEmail,
+          productCategories: productCategories,
+          businessBranches: businessBranches,
+          productSales: productSales,
+          otherOnlinePlatforms: otherOnlinePlatforms,
+          refId: uniqueId,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
       setStep("STEP11");
     } else {
       toast.error("Please fill all required fields", {
@@ -293,7 +321,7 @@ export function BusinessManagement({ step, setStep }: any) {
   );
 }
 
-export function LoanInformation({ step, setStep }: any) {
+export function LoanInformation({ step, setStep, uniqueId }: any) {
   const [courrentBlockForm, setCurrentBlockForm] = useState(1);
   const [loanApplication, setLoanApplic] = useState([
     {
@@ -408,10 +436,20 @@ export function LoanInformation({ step, setStep }: any) {
   };
 
   const handleProceed = () => {
-    // if (courrentBlockForm != 11) {
-    //   setCurrentBlockForm(courrentBlockForm + 1);
-    // } else {
-    // }
+    if (courrentBlockForm != 11) {
+      setCurrentBlockForm(courrentBlockForm + 1);
+    } else {
+    }
+    loanApplication.map(async (x, i) => {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/LoanInformation/${uniqueId}`, {
+          ...x,
+          refId: uniqueId,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
+    });
     setCurrentBlockForm(11);
   };
 
@@ -508,7 +546,7 @@ export function LoanInformation({ step, setStep }: any) {
   );
 }
 
-export function FreeSpeech({ step, setStep }: any) {
+export function FreeSpeech({ step, setStep, uniqueId }: any) {
   const [showModal, setShowModal] = useState(false);
   const [otherInfo, setOtherInfo] = useState({
     amount: "",
@@ -516,10 +554,10 @@ export function FreeSpeech({ step, setStep }: any) {
     otherBank: "",
     financialObligation: "",
     comments: "",
-    inventoryValue:'',
+    inventoryValue: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const { amount, annualTurnOver, otherBank, financialObligation, comments } =
       otherInfo;
     if (
@@ -528,6 +566,14 @@ export function FreeSpeech({ step, setStep }: any) {
       otherBank != "" &&
       financialObligation != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/FreeSpeech/${uniqueId}`, {
+          ...otherInfo,
+          refId: uniqueId,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
       setShowModal(true);
     } else {
       toast.error("Please fill all required fields", {

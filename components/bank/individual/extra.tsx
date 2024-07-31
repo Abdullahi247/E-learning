@@ -15,8 +15,10 @@ import {
 import React, { useState } from "react";
 import SignaturePadComponent from "@/components/bank/individual/signaturePad";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { config } from "@/components/utils/color";
 
-export default function Category({ step, setStep }: any) {
+export default function Category({ step, setStep, setUniqueId }: any) {
   const [categories, setCategories] = useState({
     bvn: "",
     accountType: "",
@@ -24,7 +26,7 @@ export default function Category({ step, setStep }: any) {
     accountCategory: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     console.log(categories);
     const { accountType, accountTypeOther, accountCategory, bvn } = categories;
     if (
@@ -35,6 +37,15 @@ export default function Category({ step, setStep }: any) {
         accountType == "SG Vendor Loan")
     ) {
       setStep("STEP2");
+      await axios
+        .post(`${config.liveUrl}/sage-bank/category`, {
+          ...categories,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
     } else {
       toast.error("Please fill all required fields", {
         position: "top-right",
@@ -171,7 +182,7 @@ export default function Category({ step, setStep }: any) {
   );
 }
 
-export function PersonalInfo({ step, setStep }: any) {
+export function PersonalInfo({ step, setStep, uniqueId }: any) {
   const [contentSwitch, setContentSwitch] = useState("STEP1");
   const [personalInfo, setPersonalInfo] = useState({
     title: "",
@@ -200,7 +211,7 @@ export function PersonalInfo({ step, setStep }: any) {
   const handlePrev = () => {
     setStep("STEP1");
   };
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       title,
       bvn,
@@ -213,6 +224,7 @@ export function PersonalInfo({ step, setStep }: any) {
       dob,
       socialMedia,
       motherMaidenName,
+      LGA,
     } = personalInfo;
     if (
       title != "" &&
@@ -221,6 +233,19 @@ export function PersonalInfo({ step, setStep }: any) {
       (maritalStatus == "Single" || maritalStatus == "Married") &&
       sex != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/personalInfo/${uniqueId}`, {
+          // ...personalInfo, lgaOrigin:LGA,
+          title: title,
+          surname: surname,
+          middleName: middleName,
+          maritalStatus: maritalStatus,
+          sex: sex,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
       setContentSwitch("STEP2");
     } else if (
       title != "" &&
@@ -237,7 +262,7 @@ export function PersonalInfo({ step, setStep }: any) {
     }
   };
 
-  const handleSecondProceed = () => {
+  const handleSecondProceed = async () => {
     const {
       title,
       bvn,
@@ -261,6 +286,20 @@ export function PersonalInfo({ step, setStep }: any) {
       stateOfOrigin != "" &&
       LGA != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/personalInfo/${uniqueId}`, {
+          // ...personalInfo, lgaOrigin:LGA,
+          dob: dob,
+          motherMaidenName: motherMaidenName,
+          socialMedia: socialMedia,
+          stateOfOrigin: stateOfOrigin,
+          lgaOrigin: LGA,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
+      // setContentSwitch("STEP2");
       setContentSwitch("STEP3");
     } else {
       toast.error("Please fill all required fields", {
@@ -269,7 +308,7 @@ export function PersonalInfo({ step, setStep }: any) {
     }
   };
 
-  const handleThirdProceed = () => {
+  const handleThirdProceed = async () => {
     const {
       nationalityNonNigerian,
       residentPErmit,
@@ -288,6 +327,20 @@ export function PersonalInfo({ step, setStep }: any) {
       usSocialSecurityNo != "" &&
       purposeOfAccount != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/personalInfo/${uniqueId}`, {
+          // ...personalInfo, lgaOrigin:LGA,
+          nationalityNonNigerian: nationalityNonNigerian,
+          idIssueDate: idIssueDate,
+          idExpiryDate: idExpiryDate,
+          dualCititzenshipStatus: dualCititzenshipStatus,
+          usSocialSecurityNo: usSocialSecurityNo,
+          purposeOfAccount: purposeOfAccount,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
       setStep("STEP3");
     } else {
       toast.error("Please fill all required fields", {
@@ -568,7 +621,7 @@ export function PersonalInfo({ step, setStep }: any) {
                 }
               />
               <div>
-              <div className="titleHead">
+                <div className="titleHead">
                   <h3>
                     Do you have dual citizenship <span>*</span>
                   </h3>
@@ -659,7 +712,7 @@ export function PersonalInfo({ step, setStep }: any) {
     </PersonalInfoContainer>
   );
 }
-export function ContactDetails({ step, setStep }: any) {
+export function ContactDetails({ step, setStep, uniqueId }: any) {
   const [contactDetails, setContactDetails] = useState({
     houseNumber: "",
     streeetName: "",
@@ -672,7 +725,7 @@ export function ContactDetails({ step, setStep }: any) {
     phoneTwo: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       houseNumber,
       streeetName,
@@ -696,6 +749,14 @@ export function ContactDetails({ step, setStep }: any) {
       phoneOne != "" &&
       phoneTwo != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/ContactDetails/${uniqueId}`, {
+          ...contactDetails,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
       setStep("STEP4");
     } else {
       toast.error("Please fill all required fields", {
@@ -709,7 +770,7 @@ export function ContactDetails({ step, setStep }: any) {
       {" "}
       <FormHeader header={"CONTACT DETAILS"} />
       <div>
-      <div className="titleHead">
+        <div className="titleHead">
           <h3>Residential Address</h3>
           <p>Please select one</p>
         </div>
@@ -820,7 +881,7 @@ export function ContactDetails({ step, setStep }: any) {
     </ContactDetailsContainer>
   );
 }
-export function ValidIDentity({ step, setStep }: any) {
+export function ValidIDentity({ step, setStep, uniqueId }: any) {
   const [validIdentity, setValidIdentity] = useState({
     licenseType: "",
     otherLicense: "",
@@ -829,7 +890,7 @@ export function ValidIDentity({ step, setStep }: any) {
     idExpiryDate: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const { licenseType, otherLicense, idNumber, idIssueDate, idExpiryDate } =
       validIdentity;
     if (
@@ -838,6 +899,14 @@ export function ValidIDentity({ step, setStep }: any) {
       idIssueDate != "" &&
       idExpiryDate != ""
     ) {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/ValidIDentity/${uniqueId}`, {
+          ...validIdentity,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
       setStep("STEP5");
     } else {
       toast.error("Please fill all required fields", {
@@ -968,15 +1037,23 @@ export function ValidIDentity({ step, setStep }: any) {
   );
 }
 
-export function AccountService({ step, setStep }: any) {
+export function AccountService({ step, setStep, uniqueId }: any) {
   const [accountService, setAccountService] = useState({
     bankingPreference: "",
     username: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const { bankingPreference, username } = accountService;
     if (bankingPreference != "" && username != "") {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/AccountService/${uniqueId}`, {
+          ...accountService,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        })
+        .catch((err) => {});
       setStep("STEP6");
     } else {
       toast.error("Please fill all required fields", {
@@ -1046,7 +1123,7 @@ export function AccountService({ step, setStep }: any) {
   );
 }
 
-export function EmploymentDetails({ step, setStep }: any) {
+export function EmploymentDetails({ step, setStep, uniqueId }: any) {
   const [internalStep, setInternalStep] = useState("STEP1");
   const [employmentDetails, setEmploymentDetails] = useState({
     employmentStatus: "",
@@ -1063,7 +1140,7 @@ export function EmploymentDetails({ step, setStep }: any) {
     mobileNo: "",
   });
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       employmentStatus,
       employmentStatusData,
@@ -1080,6 +1157,13 @@ export function EmploymentDetails({ step, setStep }: any) {
     } = employmentDetails;
 
     if (employmentStatus != "" && annualSalary != "") {
+      await axios
+        .post(`${config.liveUrl}/sage-bank/EmploymentDetails/${uniqueId}`, {
+          ...employmentDetails,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
       setInternalStep("STEP2");
     } else {
       toast.error("Please fill all required fields", {
@@ -1237,7 +1321,7 @@ export function EmploymentDetails({ step, setStep }: any) {
             <br />
           </div>
           <div>
-          <div className="titleHead">
+            <div className="titleHead">
               <h3>Annual Salary / Expected Annual Income</h3>
               <p>Please select one</p>
             </div>
@@ -1471,7 +1555,7 @@ export function EmploymentDetails({ step, setStep }: any) {
     </EmploymentDetailsContainer>
   );
 }
-export function NextOfKin({ step, setStep }: any) {
+export function NextOfKin({ step, setStep, uniqueId }: any) {
   const [internalStep, setInternalStep] = useState("STEP1");
   const [nextOfKin, setNextOfKin] = useState({
     title: "",
@@ -1493,7 +1577,7 @@ export function NextOfKin({ step, setStep }: any) {
   const handlePrev = () => {
     setStep(6);
   };
-  const handleProceed = () => {
+  const handleProceed = async () => {
     const {
       title,
       surname,
@@ -1510,6 +1594,17 @@ export function NextOfKin({ step, setStep }: any) {
       email,
     } = nextOfKin;
     if (title != "" && surname != "" && middleName != "" && firstName != "") {
+       axios
+        .post(`${config.liveUrl}/sage-bank/NextOfKin/${uniqueId}`, {
+          titleKin: title,
+          surnameKin: surname,
+          middleNameKin: middleName,
+          firstNameKin: firstName,
+          refId:uniqueId,
+        })
+        .then((res) => {
+          // setUniqueId(res.data?.data?.id);
+        });
       setInternalStep("STEP2");
     } else {
       toast.error("Please fill all required fields", {
@@ -1518,7 +1613,7 @@ export function NextOfKin({ step, setStep }: any) {
     }
   };
 
-  const handleSecondProceed = () => {
+  const handleSecondProceed = async () => {
     const {
       title,
       surname,
@@ -1535,6 +1630,16 @@ export function NextOfKin({ step, setStep }: any) {
       email,
     } = nextOfKin;
     if (sex != "" && houseNumber != "" && landmarkorBustStop != "") {
+      await axios
+      .post(`${config.liveUrl}/sage-bank/NextOfKin/${uniqueId}`, {
+        sexKin: sex,
+        houseNumberKin: houseNumber,
+        landmarkorBustStopKin: landmarkorBustStop,
+        refId:uniqueId,
+      })
+      .then((res) => {
+        // setUniqueId(res.data?.data?.id);
+      });
       setStep("STEP8");
     } else {
       toast.error("Please fill all required fields", {
@@ -1725,7 +1830,7 @@ export function NextOfKin({ step, setStep }: any) {
             />
 
             <DualAppButtonContainer>
-              <button onClick={() => setInternalStep('STEP1')}>Prev</button>
+              <button onClick={() => setInternalStep("STEP1")}>Prev</button>
               <button onClick={handleSecondProceed}>Next</button>
             </DualAppButtonContainer>
           </div>
@@ -1735,10 +1840,13 @@ export function NextOfKin({ step, setStep }: any) {
   );
 }
 
-export function Signatory({ step, setStep }: any) {
+export function Signatory({ step, setStep, uniqueId }: any) {
   return (
     <>
-      <SignaturePadComponent setStep={() => setStep("STEP9")} />
+      <SignaturePadComponent
+        uniqueId={uniqueId}
+        setStep={() => setStep("STEP9")}
+      />
     </>
   );
 }
@@ -1784,7 +1892,7 @@ export function ReuseableBoxField({
   );
 }
 
-export function FormHeader({ header }:any) {
+export function FormHeader({ header }: any) {
   return (
     <FormHeaderContainer>
       <h3>{header}</h3>
