@@ -907,7 +907,7 @@ export function ValidIDentity({ step, setStep, uniqueId }: any) {
           // setUniqueId(res.data?.data?.id);
         })
         .catch((err) => {});
-      setStep("STEP5");
+      setStep("STEP4i");
     } else {
       toast.error("Please fill all required fields", {
         position: "top-right",
@@ -1115,7 +1115,7 @@ export function AccountService({ step, setStep, uniqueId }: any) {
           }
         />
         <DualAppButtonContainer>
-          <button onClick={() => setStep("STEP4")}>Prev</button>
+          <button onClick={() => setStep("STEP4i")}>Prev</button>
           <button onClick={handleProceed}>Next</button>
         </DualAppButtonContainer>
       </div>

@@ -13,9 +13,10 @@ import BusinessInformation, {
   FreeSpeech,
   LoanInformation,
 } from "./sectionTwp";
+import MediaFile from "./mediaFile";
 
 export default function IndividualBankMain() {
-  const [step, setStep] = useState("STEP1");
+  const [step, setStep] = useState("STEP4i");
   const [uniqueId, setUniqueId] = useState(null);
   return (
     <>
@@ -42,6 +43,13 @@ export default function IndividualBankMain() {
       )}
       {step == "STEP4" && (
         <ValidIDentity
+          step={step}
+          uniqueId={uniqueId}
+          setStep={(x: string) => setStep(x)}
+        />
+      )}
+      {step == "STEP4i" && (
+        <MediaFile
           step={step}
           uniqueId={uniqueId}
           setStep={(x: string) => setStep(x)}

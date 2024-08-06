@@ -12,8 +12,8 @@ export const Modal = styled.section`
 `;
 
 export const ModalTable = styled.div`
-display: flex;
-`
+  display: flex;
+`;
 
 export const Section = styled.section`
   /* margin-bottom: 40px; */
@@ -41,7 +41,6 @@ export const Section = styled.section`
     color: grey;
     text-align: left;
   }
-
 `;
 
 export const Title = styled.h1`
@@ -56,7 +55,6 @@ export const Subtitle = styled.h2`
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 15px;
-
 `;
 
 export const Text = styled.p`
@@ -72,7 +70,8 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.p`
-  margin-bottom: 5px;  text-align: left;
+  margin-bottom: 5px;
+  text-align: left;
   margin-top: 10px;
   margin-bottom: 10px;
 `;
@@ -103,12 +102,12 @@ export const EntireFormBg = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-image: url('/img/form-bg.jpg');
+  background-image: url("/img/form-bg.jpg");
   background-size: cover;
   background-position: center;
   height: fit-content;
   overflow: scroll;
-`
+`;
 
 export const BankFormContainer = styled.div`
   width: 100%;
@@ -779,12 +778,11 @@ export const FormHeaderContainer = styled.div`
     background-color: ${primaryColor};
     color: white;
     padding: 10px;
-    width:100%;
+    width: 100%;
     @media (max-width: 800px) {
       font-size: 14px;
     }
   }
-
 `;
 
 export const ReuseableBoxFieldContainer = styled.div`
@@ -865,12 +863,32 @@ export const CanvassContainer = styled.div`
   align-items: center;
   justify-content: center;
   h3 {
-        font-family: "Onest-Regular";
-        font-size: 14px;
-        margin: 0px;
-        font-weight: 600;
-        text-align: center;
-        @media (max-width: 800px) {
-          font-size: 12px;
+    font-family: "Onest-Regular";
+    font-size: 14px;
+    margin: 0px;
+    font-weight: 600;
+    text-align: center;
+    @media (max-width: 800px) {
+      font-size: 12px;
     }
+  }
+`;
+
+export const MediaFileContainer = styled.div`
+  div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px;
+    label {
+      font-size: 14px;
+    }
+  }
+  .mediaContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    div {
+      flex-direction:row;
+    }
+  }
 `;
