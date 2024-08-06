@@ -16,7 +16,7 @@ import BusinessInformation, {
 import MediaFile from "./mediaFile";
 
 export default function IndividualBankMain() {
-  const [step, setStep] = useState("STEP4i");
+  const [step, setStep] = useState("STEP1");
   const [uniqueId, setUniqueId] = useState(null);
   return (
     <>
